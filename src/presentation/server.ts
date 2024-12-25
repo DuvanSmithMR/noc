@@ -1,4 +1,5 @@
 import { CronService } from "./cron/cron-service";
+import { CheckService } from "./domain/use-case/checks/check-service";
 
 export class Server {
   public static start() {
@@ -7,6 +8,7 @@ export class Server {
     CronService.createJob(
         "*/5 * * * * *",
         ()=>{
+            new CheckService().execute("https://www.google.com");
         }
     );
   }
