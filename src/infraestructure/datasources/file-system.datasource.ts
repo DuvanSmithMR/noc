@@ -1,6 +1,6 @@
 import fs from "fs";
 import { LogDatasource } from "../../domain/datasources/log.datasource";
-import { LogEntity, LogSeveretyLevel } from "../../domain/entities/log.entity";
+import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
 export class FileSystemDatasource implements LogDatasource {
   private readonly lodPath = "logs/";
@@ -26,12 +26,12 @@ export class FileSystemDatasource implements LogDatasource {
 
     fs.appendFileSync(this.allLodPath, logAsJson);
 
-    if (newLog.level === LogSeveretyLevel.low) return;
+    if (newLog.level === LogSeverityLevel.low) return;
 
-    if (newLog.level === LogSeveretyLevel.medium)
+    if (newLog.level === LogSeverityLevel.medium)
       fs.appendFileSync(this.mediumLodPath, logAsJson);
 
-    if (newLog.level === LogSeveretyLevel.high)
+    if (newLog.level === LogSeverityLevel.high)
       fs.appendFileSync(this.highLodPath, logAsJson);
   }
 
@@ -44,19 +44,19 @@ export class FileSystemDatasource implements LogDatasource {
     return stringLogs;
   };
 
-  async getLog(logSeveretyLevel: LogSeveretyLevel): Promise<LogEntity[]> {
-    switch (logSeveretyLevel) {
-      case LogSeveretyLevel.low:
+  async getLogs(logSeverityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+    switch (logSeverityLevel) {
+      case LogSeverityLevel.low:
         return this.getLogFromFile(this.allLodPath);
 
-      case LogSeveretyLevel.medium:
+      case LogSeverityLevel.medium:
         return this.getLogFromFile(this.mediumLodPath);
 
-      case LogSeveretyLevel.high:
+      case LogSeverityLevel.high:
         return this.getLogFromFile(this.highLodPath);
 
       default:
-        throw new Error(`${logSeveretyLevel} not implemented`);
+        throw new Error(`${logSeverityLevel} not implemented`);
     }
   }
 }
