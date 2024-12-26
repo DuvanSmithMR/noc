@@ -9,6 +9,7 @@ Seguimiento de tareas
 ```
 PORT=8000
 
+MAILER_SERVICE=
 MAILER_EMAIL=
 MAILER_SECRET_KEY=
 
