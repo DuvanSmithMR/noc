@@ -4,10 +4,15 @@ import { LogRepositoryImpl } from "../infraestructure/repositories/log.repositor
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
 import { EmailService } from "./email/email.service";
 import { SendEmailLogs } from "../domain/use-case/email/send-email-logs";
+import { MongoLogDatasource } from "../infraestructure/datasources/mongo-log.datasource";
 
-const fileSystemLogRepository = new LogRepositoryImpl(
-  new FileSystemDatasource()
+const fsLogRepository = new LogRepositoryImpl(
+  new FileSystemDatasource(),
 );
+const mongoLogRepository = new LogRepositoryImpl(
+  new MongoLogDatasource(),
+);
+
 const emailService = new EmailService();
 
 export class Server {
@@ -16,7 +21,7 @@ export class Server {
 
     emailService.sendEmailWithFileSystemLogs("otakudsmr@gmail.com");
 
-    new SendEmailLogs(emailService, fileSystemLogRepository).execute(
+    new SendEmailLogs(emailService, mongoLogRepository).execute(
       "otakudsmr@gmail.com"
     );
 
@@ -24,7 +29,7 @@ export class Server {
       // const url="https://www.google.com";
       const url = "http://localhost:3000";
       new CheckService(
-        fileSystemLogRepository,
+        mongoLogRepository,
         () => console.log(`${url} is ok.`),
         (error) => console.log(error)
       ).execute(url);
