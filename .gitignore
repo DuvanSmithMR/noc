@@ -6,3 +6,5 @@ dist/
 logs/
 
 .env
+
+mongo/

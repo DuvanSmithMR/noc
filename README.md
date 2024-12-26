@@ -19,3 +19,5 @@ PROD=false
 3. Ejecutar el comando ``` npm install ```
 
 4. Contraseñas de aplicaciones: https://myaccount.google.com/u/0/apppasswords?pli=1&rapt=AEjHL4MpBi3TY_qMpnOXJMcIr3oLcD3PNuZAYtH_92KgX2rklmyN6Pcb3lbOSyxvc_twBdMDUDePrYi3hLv715RR67oxJ9igncT4ijwJDND9aYXpihxEulQ
+
+5. Ejecutar el comando docker para pruebas de mongo ``` docker compose up -d ```
