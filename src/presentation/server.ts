@@ -14,15 +14,7 @@ export class Server {
 
     const emailService = new EmailService();
 
-    emailService.sendEmail({
-      to:'otakudsmr@gmail.com',
-      subject:'Logs de sistema',
-      htmlBody:`
-        <h3> Logs del sistema </h3>
-        <p> Algo </p>
-        <p> Ver logs adjuntos </p>
-      `,
-    });
+    emailService.sendEmailWithFileSystemLogs("otakudsmr@gmail.com");
 
     CronService.createJob("*/5 * * * * *", () => {
       // const url="https://www.google.com";
